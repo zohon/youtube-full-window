@@ -7,13 +7,64 @@ var timeFunction = function timeFunction() {
 	if($('html').hasClass('expand')) {
         //$('video').attr('controls', false);
 		$('html').removeClass('expand');
-        $('.html5-video-player').addClass('ytp-fullscreen');
+    $('.html5-video-player').addClass('ytp-fullscreen');
+
+    resizecontrols();
 
 	} else {
         //$('video').attr('controls', true);
 		$('html').addClass('expand');
-        $('.html5-video-player').removeClass('ytp-fullscreen');
+    $('.html5-video-player').removeClass('ytp-fullscreen');
+
+    resizecontrols();
+
 	}
+
+  $( window ).resize(function() {
+    resizecontrols();
+  });
+
+}
+
+var resizecontrols = function resizecontrols() {
+
+	if($('html').hasClass('expand')) {
+
+      sizeItem = $('.ytp-chrome-bottom').get(0).getBoundingClientRect().width;
+      parentwidth = $('.html5-video-player').get(0).getBoundingClientRect().width;
+      parentheight = $('.html5-video-player').get(0).getBoundingClientRect().height;
+    /*
+      console.log("sizeItem "+sizeItem+" parentwidth "+parentwidth);
+      console.log("left "+(parentwidth-sizeItem)/2);
+      console.log("width "+sizeItem);
+    */
+      var translateX = "translateX("+(parentwidth-sizeItem)/2+"px) !important";
+      //console.log(translateX);
+
+      if($('#stylePreview')) {
+        $('#stylePreview').remove();
+      }
+
+      var style = document.createElement('style');
+      style.id = 'stylePreview';
+      style.type = 'text/css';
+      style.innerHTML = '.expand .ytp-preview { transform: '+translateX+'; top: '+(parentheight-110)+'px !important; }';
+      document.getElementsByTagName('head')[0].appendChild(style);
+
+      $('.ytp-chrome-bottom').css({
+        left : (parentwidth-sizeItem)/2,
+        width : sizeItem
+      });
+
+  } else {
+      $('.ytp-chrome-bottom').css({
+        left : "10px"
+      });
+
+  }
+
+
+
 
 }
 
@@ -43,7 +94,7 @@ var loopCall = function loopCall() {
         }
 
         if(!$('.ytp-loop-button').length) {
-      
+
             $('.ytp-right-controls').prepend('<button class="ytp-loop-button ytp-button" aria-pressed="false" title="Loop"><span>Loop</span></button>');
             $('.ytp-loop-button').mousedown(function(event) {
               event.preventDefault();
@@ -91,7 +142,7 @@ function embedUrl() {
         var totalTime = 0;
 
         if(time[2]) {
-            var timevideo = "?t="+time[0]+"h"+time[1]+"m"+time[2]+"s"; 
+            var timevideo = "?t="+time[0]+"h"+time[1]+"m"+time[2]+"s";
             totalTime = parseFloat(time[0]*60*60)+parseFloat(time[1]*60)+parseFloat(time[2]);
             //url += timevideo;
         } else if(time[1]) {
@@ -105,7 +156,7 @@ function embedUrl() {
         }
 
         if(totalTime) {
-            url += "&start="+totalTime; 
+            url += "&start="+totalTime;
         }
 
     }

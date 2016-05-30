@@ -57,16 +57,16 @@
 .expand {
 	overflow: hidden;
 }
-
+/*
 .expand iframe {
 	position: fixed;
-    top: 0;
-    left: 0;
-    height: 100% !important;
-    width: 100% !important;
-    z-index: 900000;
+  top: 0;
+  left: 0;
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 900000;
 }
-
+*/
 .expand #yt-masthead-container {
 	display: none;
 }
@@ -82,7 +82,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
 }
 
 .expand .html5-video-container {
@@ -113,6 +113,10 @@
 	display: none !important;
 }
 
+.expand .html5-video-player {
+	z-index: 100;
+}
+
 .expand .ytp-iv-video-content,
 .expand .ytp-storyboard-framepreview,
 .expand .ytp-storyboard-framepreview-img {
@@ -127,7 +131,7 @@
 }
 
 .expand .ytp-chrome-bottom {
-	width:98% !important;
+	/*width:98% !important;*/
 }
 
 .ytp-popup-button,
