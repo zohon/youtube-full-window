@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Full screen Youtube",
   "description": "This extension to full screen youtube video",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "background": {
     "scripts": ["background.js"]
   },
@@ -20,5 +20,5 @@
       "js": ["jquery-1.11.3.min.js", "fullScreen.js"],
       "all_frames": true
     }
-  ] 
+  ]
 }

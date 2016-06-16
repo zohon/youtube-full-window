@@ -2,27 +2,20 @@
 
 var timeFunction = function timeFunction() {
 
-    loopCall();
+  loopCall();
 
 	if($('html').hasClass('expand')) {
-        //$('video').attr('controls', false);
+
 		$('html').removeClass('expand');
     $('.html5-video-player').addClass('ytp-fullscreen');
-
-    resizecontrols();
+    window.dispatchEvent(new Event('resize'));
 
 	} else {
-        //$('video').attr('controls', true);
 		$('html').addClass('expand');
     $('.html5-video-player').removeClass('ytp-fullscreen');
-
-    resizecontrols();
+    window.dispatchEvent(new Event('resize'));
 
 	}
-
-  $( window ).resize(function() {
-    resizecontrols();
-  });
 
 }
 
@@ -33,13 +26,8 @@ var resizecontrols = function resizecontrols() {
       sizeItem = $('.ytp-chrome-bottom').get(0).getBoundingClientRect().width;
       parentwidth = $('.html5-video-player').get(0).getBoundingClientRect().width;
       parentheight = $('.html5-video-player').get(0).getBoundingClientRect().height;
-    /*
-      console.log("sizeItem "+sizeItem+" parentwidth "+parentwidth);
-      console.log("left "+(parentwidth-sizeItem)/2);
-      console.log("width "+sizeItem);
-    */
+
       var translateX = "translateX("+(parentwidth-sizeItem)/2+"px) !important";
-      //console.log(translateX);
 
       if($('#stylePreview')) {
         $('#stylePreview').remove();
@@ -57,10 +45,10 @@ var resizecontrols = function resizecontrols() {
       });
 
   } else {
+
       $('.ytp-chrome-bottom').css({
         left : "10px"
       });
-
   }
 
 

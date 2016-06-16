@@ -1,78 +1,12 @@
-
-/*
-@media screen and (max-width: 900px) {
-
-	html {
-		overflow: hidden;
-	}
-
-	#yt-masthead-container {
-		display: none;
-	}
-
-	#movie_player {
-	    position: fixed;
-	    top: 0;
-	    left: 0;
-	    width:100%;
-	    height:100%;
-	}
-
-	.html5-video-container {
-		display: flex;
-	    align-items: center;
-	    height: 100%;
-	    width:100%;
-	}
-
-	.html5-video-player .video-click-tracking, .html5-video-player .video-stream {
-		width:100% !important;
-		height:auto !important;
-		max-height: 100% !important;
-		position: relative !important;
-	}
-
-	.ytp-chrome-bottom {
-		width:98% !important;
-	}
-
-
-	.annotation {
-		display: none !important;
-	}
-
-	.video-annotations {
-		display: none !important;
-	}
-
-	.ytp-cards-teaser {
-		display: none !important;
-	}
-
-}
-
-*/
-
-
 .expand {
 	overflow: hidden;
 }
-/*
-.expand iframe {
-	position: fixed;
-  top: 0;
-  left: 0;
-  height: 100% !important;
-  width: 100% !important;
-  z-index: 900000;
-}
-*/
+
 .expand #yt-masthead-container {
 	display: none;
 }
 
 .expand .html5-video-player {
-
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -82,11 +16,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
 }
 
 .expand .html5-video-container {
-	display: flex;
+		display: flex;
     align-items: center;
     height: 100%;
     width:100%;
@@ -117,24 +50,13 @@
 	z-index: 100;
 }
 
-.expand .ytp-iv-video-content,
-.expand .ytp-storyboard-framepreview,
-.expand .ytp-storyboard-framepreview-img {
-	width: 100% !important;
-	height: 100% !important;
-}
-
-.expand .ytp-storyboard-framepreview,
-.expand .ytp-storyboard-framepreview-img,
-.expand .ytp-gradient-bottom{
-	opacity: 0 !important;
-}
-
-.expand .ytp-chrome-bottom {
-	/*width:98% !important;*/
+.expand #gaming-event-promo-overlay,
+.expand .ytp-cards-button {
+	display: none;
 }
 
 .ytp-popup-button,
 .ytp-loop-button {
 	float: left;
+	margin-right:5px;
 }
