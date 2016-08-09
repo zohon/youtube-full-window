@@ -56,7 +56,50 @@
 }
 
 .ytp-popup-button,
-.ytp-loop-button {
+.ytp-loop-button,
+.perso-size {
 	float: left;
 	margin-right:5px;
+	text-align: center !important;
+}
+
+
+/* REDDIT */
+
+#playerExtra {
+	position: fixed;
+	height: 100%;
+	width:100%;
+	z-index: 800;
+	right:0;
+	transition: all 0.3s ease;
+}
+
+.scrolled #playerExtra {
+	height: 49%;
+	width:45%;
+}
+
+#playerFull {
+	height: 100%;
+	width:100%;
+
+}
+
+#playerExtra:hover #playerFullInfos {
+	top:0;
+}
+
+#playerFullInfos {
+	z-index: 900;
+	top:-100%;
+	background: rgba(255,255,255,1);
+	height: 20px;
+	padding: 10px;
+	transition: all 0.5s ease;
+	position: absolute;
+}
+
+.thing.full .expando{
+	display: none;
 }
