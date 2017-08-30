@@ -1,17 +1,28 @@
-ar timeFunction = function timeFunction() {
+var timeFunction = function timeFunction() {
 
     loopCall();
 
     if ($('html').hasClass('expand')) {
         $('html').removeClass('expand');
+
+        $('ytd-watch').removeAttr('theater-requested_');
+        $('ytd-watch').removeAttr('theater');
+
         $('.html5-video-player').addClass('ytp-fullscreen');
         window.dispatchEvent(new Event('resize'));
     } else {
         $('html').addClass('expand');
+
+        if($('ytd-watch')) {
+          console.log($('ytd-watch'));
+          $('ytd-watch')[0].setAttribute("theater", "");
+          $('ytd-watch')[0].setAttribute("theater-requested_", "");
+        }
+
+
         $('.html5-video-player').removeClass('ytp-fullscreen');
         window.dispatchEvent(new Event('resize'));
     }
-
 }
 
 var resizecontrols = function resizecontrols() {
