@@ -1,83 +1,3 @@
-var timeFunction = function timeFunction() {
-
-    loopCall();
-
-    if ($('html').hasClass('expand')) {
-        $('html').removeClass('expand');
-
-        $('ytd-watch').removeAttr('theater-requested_');
-        $('ytd-watch').removeAttr('theater');
-
-        $('.html5-video-player').addClass('ytp-fullscreen');
-        window.dispatchEvent(new Event('resize'));
-    } else {
-        $('html').addClass('expand');
-
-        if($('ytd-watch')) {
-          console.log($('ytd-watch'));
-          $('ytd-watch')[0].setAttribute("theater", "");
-          $('ytd-watch')[0].setAttribute("theater-requested_", "");
-        }
-
-
-        $('.html5-video-player').removeClass('ytp-fullscreen');
-        window.dispatchEvent(new Event('resize'));
-    }
-}
-
-var resizecontrols = function resizecontrols() {
-
-    if ($('html').hasClass('expand')) {
-
-        sizeItem = $('.ytp-chrome-bottom').get(0).getBoundingClientRect().width;
-        parentwidth = $('.html5-video-player').get(0).getBoundingClientRect().width;
-        parentheight = $('.html5-video-player').get(0).getBoundingClientRect().height;
-
-        var translateX = "translateX(" + (parentwidth - sizeItem) / 2 + "px) !important";
-
-        if ($('#stylePreview')) {
-            $('#stylePreview').remove();
-        }
-
-        var style = document.createElement('style');
-        style.id = 'stylePreview';
-        style.type = 'text/css';
-        style.innerHTML = '.expand .ytp-preview { transform: ' + translateX + '; top: ' + (parentheight - 110) + 'px !important; }';
-        document.getElementsByTagName('head')[0].appendChild(style);
-
-        $('.ytp-chrome-bottom').css({
-            left: (parentwidth - sizeItem) / 2,
-            width: sizeItem
-        });
-
-    } else {
-
-        $('.ytp-chrome-bottom').css({
-            left: "10px"
-        });
-    }
-
-
-
-
-}
-
-var GetURLParameter = function GetURLParameter(sParam) {
-
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) {
-
-        var sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] == sParam) {
-            return sParameterName[1];
-        }
-
-    }
-
-}
-
 var loopCall = function loopCall() {
 
     if ($('.expando-button.collapsed.video').length) { //reddit video
@@ -102,14 +22,8 @@ var loopCall = function loopCall() {
 
     if (!window.isSetFullScreen) {
         theUrl = window.location.href;
-        if (theUrl.indexOf("youtube.com/embed") < 0) {
-            //$('.html5-video-player video').remove();
-            //$('.html5-video-player').html('<iframe src="'+embedUrl()+'" allowfullscreen frameborder="0" style="width:100%; height:100%;"></iframe>');
-        }
-
 
         if (!$('.ytp-size-button svg').length) {
-
             $('.ytp-right-controls').prepend('<button class="ytp-size-button perso-size ytp-button" aria-pressed="false" title="Zoom"><span>[&nbsp;&nbsp;&nbsp;]</span></button>');
             $('.ytp-size-button').mousedown(function(event) {
                 event.preventDefault();
@@ -128,9 +42,7 @@ var loopCall = function loopCall() {
             });
         }
 
-
         if (!$('.ytp-loop-button').length) {
-
             $('.ytp-right-controls').prepend('<button class="ytp-loop-button ytp-button" aria-pressed="false" title="Loop"><span>Loop</span></button>');
             $('.ytp-loop-button').mousedown(function(event) {
                 event.preventDefault();
@@ -146,20 +58,42 @@ var loopCall = function loopCall() {
         }
 
         if (!$('.ytp-popup-button').length) {
-
             $('.ytp-right-controls').prepend('<button class="ytp-popup-button ytp-button" aria-pressed="false" title="Popup"><span>Popup</span></button>');
-
             $('.ytp-popup-button').mousedown(function(event) {
                 event.preventDefault();
                 event.stopPropagation();
-                //$('.ytp-popup-button').attr('aria-pressed', true);
                 popup();
             });
         }
 
+        $('.ytp-size-button').mouseup(function(event) {
+            setType();
+        });
         window.isSetFullScreen = true;
     }
 
+
+    myElem = document.getElementById('player-theater-container');
+    if (myElem && !myElem.childNodes.length) {
+        $('.ytp-size-button').trigger('click');
+    }
+    setType();
+    $(window).trigger('resize');
+}
+
+function setType() {
+    setTimeout(() => {
+        let myElem = document.getElementById('player-theater-container');
+        console.log('myElem', myElem);
+        elementHTML = document.getElementsByTagName('html')[0];
+
+        if (myElem && myElem.childNodes.length) {
+            elementHTML.classList.add("isFullScreen");
+        } else {
+            elementHTML.classList.remove("isFullScreen");
+        }
+        $(window).trigger('resize');
+    }, 300);
 }
 
 function generatEmbed(url, title) {
@@ -278,59 +212,27 @@ function embedUrl() {
     return url;
 }
 
+var GetURLParameter = function GetURLParameter(sParam) {
+
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+
+        var sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+
+    }
+}
+
 function popup() {
     var url = embedUrl();
     $('.ytp-play-button').click();
     var myWindow = window.open(url, "MsgWindow", "width=854, height=480");
     $(myWindow.document).find('html').addClass('expand');
 }
-
-if (!window.setFullScrren) {
-
-    if ($('.ytp-size-button')) {
-        $('.ytp-size-button').mousedown(function(event) {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            switch (event.which) {
-                case 1:
-                    // $('.ytp-play-button').click();
-                    timeFunction();
-                    break;
-                case 2:
-                    break;
-                case 3:
-
-                    break;
-                default:
-                    alert('You have a strange Mouse!');
-            }
-        });
-    }
-
-    /*
-    	$('.ytp-size-button').click(function( event ) {
-    	  event.preventDefault();
-    	  event.stopPropagation();
-    	  timeFunction()
-    	});
-    */
-    window.setFullScrren = true;
-}
-
-if (!firstTime) {
-    var firstTime = 1;
-    loopCall();
-
-    if (getParameterByName('full')) {
-        timeFunction();
-    }
-
-} else {
-    timeFunction();
-}
-
 
 function gup( name, url ) {
       if (!url) url = location.href;
@@ -350,3 +252,6 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+loopCall();
+

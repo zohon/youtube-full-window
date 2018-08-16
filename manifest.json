@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Full screen Youtube",
-  "description": "This extension to full screen youtube video",
-  "version": "1.0.7",
+  "name": "Full screen Video",
+  "description": "This extension to full screen video",
+  "version": "1.0.9",
   "background": {
     "scripts": ["background.js"]
   },
@@ -15,7 +15,8 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://*/*", "http://*/*"],
+      "matches": ["*://*/*"],
+      "include_globs": ["*youtube*", "*reddit*"],
       "css": ["fullScreen.css"],
       "js": ["jquery-1.11.3.min.js", "fullScreen.js"],
       "all_frames": true
